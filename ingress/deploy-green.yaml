@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-green
+spec:
+  selector:
+    matchLabels:
+      app: web-green
+  template:
+    metadata:
+      labels:
+        app: web-green
+    spec:
+      containers:
+      - name: web-green
+        image: fabricioveronez/web-page:green
+        ports:
+        - containerPort: 80

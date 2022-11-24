@@ -1,0 +1,30 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role 
+metadata:
+  name: dasboard-reader 
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list", "watch"]
+# permissão para o deployments que está em outro apiGroups
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "watch"]
+
+---
+#criando o roleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dasboard-reader-bind
+subjects:
+# o que será vinculado - pode ser user, grupo
+- kind: ServiceAccount
+  name: user-dashboard
+  namespace: default
+# role que está sendo referenciada 
+roleRef:
+  kind: Role 
+  name: dasboard-reader 
+  apiGroups: rbac.authorization.k8s.io
+

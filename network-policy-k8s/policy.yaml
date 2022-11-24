@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: nginx-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: nginx 
+  policyTypes:
+  - Ingress
+  - Egress
+# Regra de entrada
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+    - podSelector:
+        matchLabels:
+          app: ubuntu
+# label nginx no namespace
+      namespaceSelector:
+        matchLabels:
+          ns: nginx 
+    ports:
+    - port: 80
+      protocol: TCP
+# regra de saída
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            app: ubuntu
+# label nginx no namespace
+        namespaceSelector:
+         matchLabels:
+          ns: nginx 
+      ports:
+        - ports: 80
+          protocol: TCP
