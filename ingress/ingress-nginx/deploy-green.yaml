@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
       - name: web-green
-        image: fabricioveronez/web-page:green
+        image: ellisonalencar/web-page:green
         ports:
         - containerPort: 80
