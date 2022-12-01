@@ -1,0 +1,13 @@
+api:
+  image: ellisonalencar/pedelogo-catalogo:v1.0.0
+  serviceType: NodePort
+  ingress:
+  - testehelm.io.com/
+
+mongodb:
+  tag: 4.2.8
+  credentials:
+    userName: mongouser
+    userPassword: mongopwd
+    databaseName: admin
+
