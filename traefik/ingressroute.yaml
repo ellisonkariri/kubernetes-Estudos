@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1aplha1
+kind: IngressRoute
+metadata:
+  name: ingressroute
+spec:
+  entryPoints:
+    - web
+  routes: 
+  - match: Host('ellison.net') 
+    kind: Rule
+    services: 
+    - name: nginx-service
+      port: 80
+    middlewares:
+      - name: ratelimit 
